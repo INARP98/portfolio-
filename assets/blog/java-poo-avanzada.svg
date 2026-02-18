@@ -1,0 +1,8 @@
+
+<svg width="800" height="450" viewBox="0 0 800 450" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="800" height="450" fill="#0A1828"/>
+<path d="M400 150V300M325 225H475" stroke="#00C4B0" stroke-width="2" opacity="0.2"/>
+<rect x="340" y="180" width="120" height="80" rx="8" stroke="#00C4B0" stroke-width="4"/>
+<circle cx="400" cy="220" r="15" fill="#00C4B0" opacity="0.5"/>
+<text x="400" y="320" text-anchor="middle" fill="#00C4B0" font-family="sans-serif" font-weight="bold" font-size="24">JAVA_BACKEND</text>
+</svg>

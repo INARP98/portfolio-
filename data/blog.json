@@ -1,0 +1,483 @@
+
+[
+  {
+    "slug": "java-collections-pro",
+    "title": "Java Collections: Optimizando el rendimiento en el mundo real",
+    "date": "2024-06-15",
+    "tags": ["Java", "Backend"],
+    "excerpt": "Análisis de complejidad y casos prácticos de uso de HashMap vs TreeMap en grandes volúmenes de datos.",
+    "readTime": "15 min",
+    "coverImage": "assets/blog/fallback-java.svg",
+    "content": [
+      { "type": "text", "value": "PROBLEMA: Uso de ArrayList para búsquedas frecuentes por ID, causando latencia O(n)." },
+      { "type": "code", "language": "java", "value": "// Caso A: Búsqueda O(1) con HashMap\nMap<Integer, User> users = new HashMap<>();\nusers.put(1, new User(\"Ignacio\"));\nUser u = users.get(1);" },
+      { "type": "code", "language": "java", "value": "// Caso B: Ordenación automática con TreeSet\nSet<String> nombres = new TreeSet<>();\nnombres.add(\"Zebra\"); nombres.add(\"Abaco\"); // Abaco aparecerá primero" },
+      { "type": "code", "language": "java", "value": "// Caso C: Eliminar duplicados rápido\nList<Integer> conDuplicados = Arrays.asList(1,2,2,3);\nSet<Integer> sinDuplicados = new HashSet<>(conDuplicados);" },
+      { "type": "text", "value": "ERRORES COMUNES: No sobreescribir hashCode() al usar llaves personalizadas en un Map." },
+      { "type": "text", "value": "CHECKLIST: ¿He usado la interfaz List/Set en la declaración? ¿He dimensionado el Map?" }
+    ]
+  },
+  {
+    "slug": "sql-joins-advanced",
+    "title": "SQL: Joins Avanzados y Consultas para Informes",
+    "date": "2024-06-12",
+    "tags": ["SQL", "Data"],
+    "excerpt": "Dominando LEFT, RIGHT y FULL OUTER JOIN para reportes de integridad de datos.",
+    "readTime": "12 min",
+    "coverImage": "assets/blog/fallback-sql.svg",
+    "content": [
+      { "type": "text", "value": "PROBLEMA: Necesidad de identificar productos que nunca se han vendido y clientes sin pedidos." },
+      { "type": "code", "language": "sql", "value": "-- Productos sin ventas\nSELECT p.nombre FROM productos p \nLEFT JOIN ventas v ON p.id = v.prod_id \nWHERE v.id IS NULL;" },
+      { "type": "code", "language": "sql", "value": "-- Informe de ventas por categoría con totales\nSELECT c.nombre, COUNT(v.id), SUM(v.total)\nFROM categorias c \nINNER JOIN productos p ON c.id = p.cat_id\nINNER JOIN ventas v ON p.id = v.prod_id\nGROUP BY c.nombre;" },
+      { "type": "code", "language": "sql", "value": "-- Comparativa de ventas mes actual vs anterior\nSELECT mes, total, LAG(total) OVER (ORDER BY mes) as anterior\nFROM reporte_ventas;" },
+      { "type": "text", "value": "ERRORES COMUNES: Olvidar el ON en el JOIN o filtrar la tabla derecha en el WHERE (convirtiéndolo en INNER)." },
+      { "type": "text", "value": "CHECKLIST: ¿He verificado nulos? ¿Están las columnas de unión indexadas?" }
+    ]
+  },
+  {
+    "slug": "linux-process-management",
+    "title": "Linux: Gestión de Procesos y Troubleshooting de Puertos",
+    "date": "2024-06-10",
+    "tags": ["Linux", "Sistemas"],
+    "excerpt": "Comandos esenciales para revivir servicios bloqueados y analizar el consumo de recursos.",
+    "readTime": "10 min",
+    "coverImage": "assets/blog/fallback-linux.svg",
+    "content": [
+      { "type": "text", "value": "PROBLEMA: El servidor web no arranca porque el puerto 80 ya está ocupado." },
+      { "type": "code", "language": "bash", "value": "# Localizar el proceso por puerto\nsudo lsof -i :80\nsudo netstat -tulpn | grep :80" },
+      { "type": "code", "language": "bash", "value": "# Matar procesos rebeldes\nkill -9 <PID>\nkillall -u www-data" },
+      { "type": "code", "language": "bash", "value": "# Monitoreo en tiempo real avanzado\ntop -u ignacio\nhtop # Si está disponible" },
+      { "type": "code", "language": "bash", "value": "# Ver logs en vivo\ntail -f /var/log/apache2/error.log" },
+      { "type": "text", "value": "ERRORES COMUNES: Usar kill -9 sin intentar primero kill -15 (cierre limpio)." },
+      { "type": "text", "value": "CHECKLIST: ¿He revisado dmesg? ¿Tengo permisos de sudo?" }
+    ]
+  },
+  {
+    "slug": "java-exceptions-clean",
+    "title": "Java: Excepciones y Validación de Datos Limpia",
+    "date": "2024-06-08",
+    "tags": ["Java", "Clean Code"],
+    "excerpt": "Cómo evitar el 'Callback Hell' de try-catch y centralizar la lógica de errores.",
+    "readTime": "11 min",
+    "coverImage": "assets/blog/fallback-java.svg",
+    "content": [
+      { "type": "text", "value": "PROBLEMA: Bloques try-catch redundantes que ensucian la lógica de negocio." },
+      { "type": "code", "language": "java", "value": "// Uso de Excepciones Personalizadas\nif (edad < 18) throw new MinorAgeException(\"Acceso denegado\");" },
+      { "type": "code", "language": "java", "value": "// Try-with-resources (Cierre automático)\ntry (BufferedReader br = new BufferedReader(new FileReader(file))) {\n    return br.readLine();\n}" },
+      { "type": "code", "language": "java", "value": "// Validación con Optional para evitar NullPointer\nOptional<User> user = repo.findById(id);\nuser.ifPresentOrElse(System.out::println, () -> log.error(\"Not found\"));" },
+      { "type": "text", "value": "ERRORES COMUNES: Capturar 'Exception' genérica y no hacer nada con ella (swallowing exceptions)." },
+      { "type": "text", "value": "CHECKLIST: ¿He logueado el stacktrace? ¿La excepción es descriptiva?" }
+    ]
+  },
+  {
+    "slug": "sql-indexes-performance",
+    "title": "SQL: Índices y Rendimiento. Por qué tu consulta va lenta",
+    "date": "2024-06-05",
+    "tags": ["SQL", "DB"],
+    "excerpt": "Análisis de planes de ejecución y creación estratégica de índices.",
+    "readTime": "13 min",
+    "coverImage": "assets/blog/fallback-sql.svg",
+    "content": [
+      { "type": "text", "value": "PROBLEMA: Búsquedas que tardan segundos en tablas de solo 100k filas." },
+      { "type": "code", "language": "sql", "value": "-- Crear índice compuesto para búsquedas frecuentes\nCREATE INDEX idx_user_login ON usuarios (email, password_hash);" },
+      { "type": "code", "language": "sql", "value": "-- Analizar el plan (Postgres/MySQL)\nEXPLAIN ANALYZE SELECT * FROM ventas WHERE fecha > '2024-01-01';" },
+      { "type": "code", "language": "sql", "value": "-- Evitar funciones en el WHERE (Anula el índice)\n-- Mal: WHERE YEAR(fecha) = 2024\n-- Bien: WHERE fecha >= '2024-01-01' AND fecha <= '2024-12-31'" },
+      { "type": "text", "value": "ERRORES COMUNES: Indexar columnas con baja cardinalidad (ej: género) o indexar absolutamente todo." },
+      { "type": "text", "value": "CHECKLIST: ¿He actualizado estadísticas? ¿El índice es B-Tree o Hash?" }
+    ]
+  },
+  {
+    "slug": "windows-cmd-sysadmin",
+    "title": "Windows CMD/PowerShell: Comandos Útiles para el Día a Día",
+    "date": "2024-06-03",
+    "tags": ["Windows", "Sistemas"],
+    "excerpt": "Dominando la terminal de Windows para redes y gestión de archivos.",
+    "readTime": "9 min",
+    "coverImage": "assets/blog/fallback-windows.svg",
+    "content": [
+      { "type": "text", "value": "PROBLEMA: Necesidad de diagnosticar red y procesos sin usar interfaz gráfica." },
+      { "type": "code", "language": "powershell", "value": "# Ver conexiones activas y puerto\nnetstat -ano | findstr :8080" },
+      { "type": "code", "language": "powershell", "value": "# Buscar archivos por extensión recursivamente\nGet-ChildItem -Recurse -Filter *.log" },
+      { "type": "code", "language": "powershell", "value": "# Forzar cierre de aplicación\ntaskkill /F /IM chrome.exe" },
+      { "type": "code", "language": "cmd", "value": "ipconfig /flushdns && ipconfig /renew" },
+      { "type": "text", "value": "ERRORES COMUNES: Confundir rutas de Linux (/) con Windows (\\) en scripts batch." },
+      { "type": "text", "value": "CHECKLIST: ¿He ejecutado como Administrador? ¿Las variables de entorno están en el PATH?" }
+    ]
+  },
+  {
+    "slug": "web-css-grid-flex",
+    "title": "CSS: Layout Pro con Grid y Flexbox Aplicado",
+    "date": "2024-06-01",
+    "tags": ["Web", "CSS"],
+    "excerpt": "Cómo estructurar dashboards y layouts responsivos sin frameworks.",
+    "readTime": "10 min",
+    "coverImage": "assets/blog/fallback-web.svg",
+    "content": [
+      { "type": "text", "value": "PROBLEMA: Layouts que se rompen en móvil o divs que no se centran." },
+      { "type": "code", "language": "css", "value": "/* Grid perfecta para tarjetas */\n.container {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));\n  gap: 20px;\n}" },
+      { "type": "code", "language": "css", "value": "/* Centrado absoluto Flexbox */\n.parent {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}" },
+      { "type": "code", "language": "css", "value": "/* Sticky Header sin JS */\nheader {\n  position: sticky;\n  top: 0;\n  z-index: 100;\n}" },
+      { "type": "text", "value": "ERRORES COMUNES: Usar float para layouts modernos o no definir box-sizing: border-box." },
+      { "type": "text", "value": "CHECKLIST: ¿Funciona en Safari? ¿He usado unidades relativas (rem/em)?" }
+    ]
+  },
+  {
+    "slug": "xml-xsd-validation-guide",
+    "title": "XML/XSD: Validación de Datos Estructural",
+    "date": "2024-05-30",
+    "tags": ["XML", "Datos"],
+    "excerpt": "Creando contratos de datos robustos para intercambio entre sistemas.",
+    "readTime": "8 min",
+    "coverImage": "assets/blog/fallback-xml.svg",
+    "content": [
+      { "type": "text", "value": "PROBLEMA: Recibir archivos XML con campos faltantes o tipos de datos incorrectos." },
+      { "type": "code", "language": "xml", "value": "<!-- Definición de tipo simple con Regex -->\n<xs:simpleType name=\"tipoDNI\">\n  <xs:restriction base=\"xs:string\">\n    <xs:pattern value=\"[0-9]{8}[A-Z]\"/>\n  </xs:restriction>\n</xs:simpleType>" },
+      { "type": "code", "language": "xml", "value": "<!-- Elemento complejo con secuencia -->\n<xs:element name=\"empleado\">\n  <xs:complexType>\n    <xs:sequence>\n      <xs:element name=\"id\" type=\"xs:integer\"/>\n      <xs:element name=\"email\" type=\"xs:string\" minOccurs=\"1\"/>\n    </xs:sequence>\n  </xs:complexType>\n</xs:element>" },
+      { "type": "text", "value": "ERRORES COMUNES: Olvidar declarar el targetNamespace o confundir xs:sequence con xs:all." },
+      { "type": "text", "value": "CHECKLIST: ¿El XML apunta al XSD correcto? ¿He validado la codificación UTF-8?" }
+    ]
+  },
+  {
+    "slug": "uml-inventory-case-study",
+    "title": "UML: Modelado de un Sistema de Inventario",
+    "date": "2024-05-28",
+    "tags": ["UML", "Diseño"],
+    "excerpt": "Del requerimiento al diagrama de clases y secuencia.",
+    "readTime": "12 min",
+    "coverImage": "assets/blog/fallback-uml.svg",
+    "content": [
+      { "type": "text", "value": "PROBLEMA: Ambigüedad en las relaciones entre Producto, Almacén y Movimiento." },
+      { "type": "text", "value": "CASO: Una Venta disminuye el stock. Diagrama de Secuencia:\nCliente -> Sistema: crearPedido()\nSistema -> Inventario: verificarStock()\nInventario -> Producto: descontar(cantidad)" },
+      { "type": "code", "language": "java", "value": "// Implementación de Agregación UML\npublic class Almacen {\n    private List<Producto> productos = new ArrayList<>();\n}" },
+      { "type": "text", "value": "ERRORES COMUNES: Relaciones cíclicas o multiplicidad incorrecta (0..1 vs 1..*)." },
+      { "type": "text", "value": "CHECKLIST: ¿He incluido las clases abstractas? ¿Están claros los métodos públicos?" }
+    ]
+  },
+  {
+    "slug": "js-fetch-async-await",
+    "title": "JS: Consumo de APIs con Fetch y Async/Await",
+    "date": "2024-05-25",
+    "tags": ["JS", "Web"],
+    "excerpt": "Patrones modernos para manejar peticiones asíncronas y errores de red.",
+    "readTime": "11 min",
+    "coverImage": "assets/blog/fallback-web.svg",
+    "content": [
+      { "type": "text", "value": "PROBLEMA: La interfaz se queda 'congelada' esperando una respuesta o fallos silenciosos." },
+      { "type": "code", "language": "javascript", "value": "async function getData() {\n  try {\n    const response = await fetch('https://api.example.com/data');\n    if (!response.ok) throw new Error('Network status error');\n    const data = await response.json();\n    render(data);\n  } catch (err) {\n    console.error(\"API Fail:\", err.message);\n  }\n}" },
+      { "type": "code", "language": "javascript", "value": "// Peticiones en paralelo con Promise.all\nconst [users, posts] = await Promise.all([\n  fetch('/users').then(r => r.json()),\n  fetch('/posts').then(r => r.json())\n]);" },
+      { "type": "text", "value": "ERRORES COMUNES: No verificar response.ok (fetch no falla con 404 o 500 automatically)." },
+      { "type": "text", "value": "CHECKLIST: ¿He puesto el loader? ¿Manejo el timeout?" }
+    ]
+  },
+  {
+    "slug": "git-workflow-junior",
+    "title": "Git: Flujo de Trabajo para Proyectos de FP",
+    "date": "2024-05-22",
+    "tags": ["Git", "Herramientas"],
+    "excerpt": "Ramas, commits semánticos y cómo no romper el repositorio.",
+    "readTime": "9 min",
+    "coverImage": "assets/blog/fallback-general.svg",
+    "content": [
+      { "type": "text", "value": "PROBLEMA: Commits gigantes con mensajes como 'fix' o 'cambios varios' que dificultan el seguimiento." },
+      { "type": "code", "language": "bash", "value": "# Crear rama para nueva feature\ngit checkout -b feature/login-system\n# Commit semántico\ngit commit -m \"feat: implement login validation logic\"" },
+      { "type": "code", "language": "bash", "value": "# Deshacer último commit manteniendo cambios\ngit reset --soft HEAD~1" },
+      { "type": "code", "language": "bash", "value": "# Ver historial gráfico simplificado\ngit log --oneline --graph --all" },
+      { "type": "text", "value": "ERRORES COMUNES: Hacer push a main directamente sin revisar o commitear node_modules." },
+      { "type": "text", "value": "CHECKLIST: ¿Tengo un .gitignore? ¿He hecho pull antes de push?" }
+    ]
+  },
+  {
+    "slug": "sql-cte-readability",
+    "title": "SQL: Consultas Legibles con CTE (Common Table Expressions)",
+    "date": "2024-05-20",
+    "tags": ["SQL"],
+    "excerpt": "Olvídate de las subconsultas anidadas imposibles de leer.",
+    "readTime": "10 min",
+    "coverImage": "assets/blog/fallback-sql.svg",
+    "content": [
+      { "type": "text", "value": "PROBLEMA: Consultas con 4 niveles de subconsultas que nadie puede mantener." },
+      { "type": "code", "language": "sql", "value": "WITH VentasPorVendedor AS (\n  SELECT vendedor_id, SUM(total) as suma\n  FROM ventas GROUP BY vendedor_id\n),\nVendedoresTop AS (\n  SELECT vendedor_id FROM VentasPorVendedor WHERE suma > 1000\n)\nSELECT v.nombre FROM vendedores v \nJOIN VendedoresTop vt ON v.id = vt.vendedor_id;" },
+      { "type": "text", "value": "ERRORES COMUNES: No poner punto y coma antes de WITH en algunos motores como SQL Server." },
+      { "type": "text", "value": "CHECKLIST: ¿La lógica es modular? ¿He usado nombres claros para las tablas temporales?" }
+    ]
+  },
+  {
+    "slug": "java-strategy-pattern",
+    "title": "Java: Patrón Strategy para Algoritmos Intercambiables",
+    "date": "2024-05-18",
+    "tags": ["Java", "Patrones"],
+    "excerpt": "Eliminando bloques IF/ELSE infinitos con polimorfismo.",
+    "readTime": "14 min",
+    "coverImage": "assets/blog/fallback-java.svg",
+    "content": [
+      { "type": "text", "value": "PROBLEMA: Un método de pago con 10 tipos distintos que crece cada mes." },
+      { "type": "code", "language": "java", "value": "public interface PagoStrategy {\n    void pagar(int monto);\n}\n\npublic class PagoPaypal implements PagoStrategy {\n    public void pagar(int m) { /* lógica paypal */ }\n}" },
+      { "type": "code", "language": "java", "value": "public class Carrito {\n    private PagoStrategy metodo;\n    public void setMetodo(PagoStrategy p) { this.metodo = p; }\n    public void procesar() { metodo.pagar(100); }\n}" },
+      { "type": "text", "value": "ERRORES COMUNES: Crear interfaces demasiado grandes (incumpliendo el ISP)." },
+      { "type": "text", "value": "CHECKLIST: ¿Puedo añadir un nuevo método sin tocar el código existente? (Open/Closed)" }
+    ]
+  },
+  {
+    "slug": "web-accessibility-forms",
+    "title": "Web: Formularios Accesibles y Semántica HTML5",
+    "date": "2024-05-15",
+    "tags": ["Web", "A11y"],
+    "excerpt": "Haciendo que tus aplicaciones sean usables para todos.",
+    "readTime": "8 min",
+    "coverImage": "assets/blog/fallback-web.svg",
+    "content": [
+      { "type": "text", "value": "PROBLEMA: Formularios que no se pueden navegar con teclado o lectores de pantalla." },
+      { "type": "code", "language": "html", "value": "<!-- Asociación correcta label-input -->\n<label for=\"usr\">Usuario:</label>\n<input type=\"text\" id=\"usr\" aria-required=\"true\">" },
+      { "type": "code", "language": "html", "value": "<!-- Agrupación lógica con Fieldset -->\n<fieldset>\n  <legend>Datos de Envío</legend>\n  <input type=\"radio\" name=\"env\" id=\"urg\"> <label for=\"urg\">Urgente</label>\n</fieldset>" },
+      { "type": "text", "value": "ERRORES COMUNES: Usar placeholder en lugar de label o usar divs como botones." },
+      { "type": "text", "value": "CHECKLIST: ¿El foco es visible? ¿He usado los tipos de input correctos (email, tel)?" }
+    ]
+  },
+  {
+    "slug": "linux-networking-diagnostics",
+    "title": "Linux: Comandos de Diagnóstico de Red (Ping, Tracert, NSLookup)",
+    "date": "2024-05-12",
+    "tags": ["Linux", "Redes"],
+    "excerpt": "Identificando dónde se rompe la conexión en la red.",
+    "readTime": "10 min",
+    "coverImage": "assets/blog/fallback-linux.svg",
+    "content": [
+      { "type": "text", "value": "PROBLEMA: El dominio resuelve pero no puedo acceder al servicio web." },
+      { "type": "code", "language": "bash", "value": "# Verificar resolución DNS\nnslookup google.com\nhost -t A ejm.com" },
+      { "type": "code", "language": "bash", "value": "# Ver saltos y latencia\ntraceroute -n 8.8.8.8\nmtr 1.1.1.1 # Continuo" },
+      { "type": "code", "language": "bash", "value": "# Ver tabla de rutas local\nip route show" },
+      { "type": "text", "value": "ERRORES COMUNES: Olvidar que ICMP (ping) puede estar bloqueado por el firewall aunque el puerto esté abierto." },
+      { "type": "text", "value": "CHECKLIST: ¿El Gateway es correcto? ¿Hay pérdida de paquetes?" }
+    ]
+  },
+  {
+    "slug": "java-equals-hashcode",
+    "title": "Java: equals() y hashCode(). La Guía Definitiva",
+    "date": "2024-05-10",
+    "tags": ["Java"],
+    "excerpt": "Por qué tus objetos desaparecen de los HashSet si no lo haces bien.",
+    "readTime": "11 min",
+    "coverImage": "assets/blog/fallback-java.svg",
+    "content": [
+      { "type": "text", "value": "PROBLEMA: Dos objetos con el mismo ID no se consideran iguales en una colección." },
+      { "type": "code", "language": "java", "value": "@Override\npublic boolean equals(Object o) {\n    if (this == o) return true;\n    if (!(o instanceof User)) return false;\n    User user = (User) o;\n    return id == user.id;\n}" },
+      { "type": "code", "language": "java", "value": "@Override\npublic int hashCode() {\n    return Objects.hash(id);\n}" },
+      { "type": "text", "value": "ERRORES COMUNES: Sobreescribir equals pero no hashCode, rompiendo el contrato del API." },
+      { "type": "text", "value": "CHECKLIST: ¿Es consistente? ¿Maneja nulos?" }
+    ]
+  },
+  {
+    "slug": "sql-top-n-group",
+    "title": "SQL: Consultas Top-N por Grupo",
+    "date": "2024-05-08",
+    "tags": ["SQL"],
+    "excerpt": "Obtener el último pedido de cada cliente con una sola consulta.",
+    "readTime": "10 min",
+    "coverImage": "assets/blog/fallback-sql.svg",
+    "content": [
+      { "type": "text", "value": "PROBLEMA: Mostrar solo el producto más caro de cada categoría." },
+      { "type": "code", "language": "sql", "value": "SELECT categoria, nombre, precio FROM (\n  SELECT *, ROW_NUMBER() OVER(PARTITION BY categoria ORDER BY precio DESC) as r\n  FROM productos\n) t WHERE r = 1;" },
+      { "type": "text", "value": "ERRORES COMUNES: Usar GROUP BY sin agregaciones, lo cual da error en SQL estándar." },
+      { "type": "text", "value": "CHECKLIST: ¿He definido el criterio de desempate en el ORDER BY?" }
+    ]
+  },
+  {
+    "slug": "web-dark-mode-vars",
+    "title": "CSS: Dark Mode con Variables y prefers-color-scheme",
+    "date": "2024-05-05",
+    "tags": ["Web", "CSS"],
+    "excerpt": "Implementando temas de forma nativa y elegante.",
+    "readTime": "9 min",
+    "coverImage": "assets/blog/fallback-web.svg",
+    "content": [
+      { "type": "text", "value": "PROBLEMA: Cambiar el color de 50 elementos manualmente para el modo oscuro." },
+      { "type": "code", "language": "css", "value": ":root {\n  --bg: #fff; --text: #000;\n}\n@media (prefers-color-scheme: dark) {\n  :root { --bg: #111; --text: #eee; }\n}" },
+      { "type": "code", "language": "css", "value": "body { background: var(--bg); color: var(--text); }" },
+      { "type": "text", "value": "ERRORES COMUNES: Usar colores fijos dentro de las clases en lugar de variables." },
+      { "type": "text", "value": "CHECKLIST: ¿He verificado el contraste? ¿Las imágenes también se adaptan?" }
+    ]
+  },
+  {
+    "slug": "java-composition-vs-inheritance",
+    "title": "Java: Composición vs Herencia. Cuándo usar qué",
+    "date": "2024-05-03",
+    "tags": ["Java", "POO"],
+    "excerpt": "Evitando las jerarquías de clases rígidas y frágiles.",
+    "readTime": "13 min",
+    "coverImage": "assets/blog/fallback-java.svg",
+    "content": [
+      { "type": "text", "value": "PROBLEMA: Una clase hija que hereda métodos que no necesita (Herencia forzada)." },
+      { "type": "code", "language": "java", "value": "// Composición: El pájaro TIENE un ala\npublic class Bird {\n    private Wing wing;\n    public void fly() { wing.flap(); }\n}" },
+      { "type": "text", "value": "ERRORES COMUNES: Usar herencia solo para reutilizar código en lugar de modelar una relación 'ES-UN'." },
+      { "type": "text", "value": "CHECKLIST: ¿Puedo cambiar el comportamiento en tiempo de ejecución?" }
+    ]
+  },
+  {
+    "slug": "xml-namespacing-explained",
+    "title": "XML: Namespaces y su importancia en Integración",
+    "date": "2024-05-01",
+    "tags": ["XML"],
+    "excerpt": "Evitando colisiones de nombres en documentos XML complejos.",
+    "readTime": "8 min",
+    "coverImage": "assets/blog/fallback-xml.svg",
+    "content": [
+      { "type": "text", "value": "PROBLEMA: Dos etiquetas 'nombre' que significan cosas distintas en el mismo documento." },
+      { "type": "code", "language": "xml", "value": "<root xmlns:h=\"http://html\" xmlns:f=\"http://furniture\">\n  <h:table>Fila HTML</h:table>\n  <f:table>Mueble madera</f:table>\n</root>" },
+      { "type": "text", "value": "ERRORES COMUNES: No usar prefijos cuando se mezclan esquemas." },
+      { "type": "text", "value": "CHECKLIST: ¿La URI es única? ¿El prefijo es corto?" }
+    ]
+  },
+  {
+    "slug": "uml-sequence-diagram-login",
+    "title": "UML: Diagrama de Secuencia de un Login Seguro",
+    "date": "2024-04-28",
+    "tags": ["UML"],
+    "excerpt": "Visualizando el flujo de mensajes entre Cliente, Servidor y DB.",
+    "readTime": "10 min",
+    "coverImage": "assets/blog/fallback-uml.svg",
+    "content": [
+      { "type": "text", "value": "PROBLEMA: No saber en qué orden se ejecutan las validaciones y sesiones." },
+      { "type": "text", "value": "FLUJO: \n1. Cliente -> LoginController: post(credenciales)\n2. LoginController -> AuthService: validate(u, p)\n3. AuthService -> Database: findUser(u)\n4. Database -> AuthService: userData\n5. AuthService -> LoginController: success" },
+      { "type": "text", "value": "ERRORES COMUNES: Ignorar los caminos de error (Alt/Else) en el diagrama." },
+      { "type": "text", "value": "CHECKLIST: ¿Están todas las líneas de vida representadas?" }
+    ]
+  },
+  {
+    "slug": "linux-permissions-chmod-chown",
+    "title": "Linux: Permisos y Dueños (chmod, chown) sin miedo",
+    "date": "2024-04-25",
+    "tags": ["Linux"],
+    "excerpt": "Entendiendo el 755 y por qué no deberías usar 777 nunca.",
+    "readTime": "9 min",
+    "coverImage": "assets/blog/fallback-linux.svg",
+    "content": [
+      { "type": "text", "value": "PROBLEMA: Errores de 'Permission Denied' en el servidor web." },
+      { "type": "code", "language": "bash", "value": "# 755: rwx para dueño, rx para otros\nchmod 755 script.sh\n# Cambiar dueño y grupo recursivo\nsudo chown -R www-data:www-data /var/www" },
+      { "type": "code", "language": "bash", "value": "# Ver permisos detallados\nls -l /etc/shadow" },
+      { "type": "text", "value": "ERRORES COMUNES: Usar 777 como solución mágica, dejando el sistema vulnerable." },
+      { "type": "text", "value": "CHECKLIST: ¿He verificado el bit de ejecución?" }
+    ]
+  },
+  {
+    "slug": "java-factory-pattern",
+    "title": "Java: Patrón Factory para Creación de Objetos",
+    "date": "2024-04-22",
+    "tags": ["Java", "Patrones"],
+    "excerpt": "Desacoplando la creación de la lógica de uso.",
+    "readTime": "12 min",
+    "coverImage": "assets/blog/fallback-java.svg",
+    "content": [
+      { "type": "text", "value": "PROBLEMA: Instanciar clases con 'new' por todo el código dificulta el cambio de implementación." },
+      { "type": "code", "language": "java", "value": "public class ConnectionFactory {\n    public static DBConnection get(String type) {\n        if (type.equals(\"SQL\")) return new SQLConn();\n        return new NoSQLConn();\n    }\n}" },
+      { "type": "text", "value": "ERRORES COMUNES: Crear factorías para clases que nunca van a cambiar." },
+      { "type": "text", "value": "CHECKLIST: ¿La factoría es estática o inyectada?" }
+    ]
+  },
+  {
+    "slug": "web-js-event-delegation",
+    "title": "JS: Delegación de Eventos para Listas Dinámicas",
+    "date": "2024-04-20",
+    "tags": ["JS", "Web"],
+    "excerpt": "Por qué no deberías poner 1000 listeners en tus botones.",
+    "readTime": "9 min",
+    "coverImage": "assets/blog/fallback-web.svg",
+    "content": [
+      { "type": "text", "value": "PROBLEMA: Los botones nuevos añadidos por JS no responden al clic." },
+      { "type": "code", "language": "javascript", "value": "// Un solo listener en el padre\ndocument.getElementById('lista').addEventListener('click', (e) => {\n  if (e.target.matches('.btn-delete')) {\n    eliminar(e.target.dataset.id);\n  }\n});" },
+      { "type": "text", "value": "ERRORES COMUNES: Olvidar el 'return' o 'stopPropagantion' en casos complejos." },
+      { "type": "text", "value": "CHECKLIST: ¿He usado data-attributes para guardar IDs?" }
+    ]
+  },
+  {
+    "slug": "sql-database-normalization",
+    "title": "SQL: Normalización (1FN, 2FN, 3FN) con Ejemplo",
+    "date": "2024-04-18",
+    "tags": ["SQL", "DB"],
+    "excerpt": "Diseñando bases de datos eficientes y sin redundancia.",
+    "readTime": "11 min",
+    "coverImage": "assets/blog/fallback-sql.svg",
+    "content": [
+      { "type": "text", "value": "PROBLEMA: Duplicidad de datos de clientes en cada fila de pedido." },
+      { "type": "text", "value": "PASOS: \n1. 1FN: Sin grupos repetidos.\n2. 2FN: Dependencia total de la PK.\n3. 3FN: Sin dependencias transitivas." },
+      { "type": "text", "value": "ERRORES COMUNES: Sobre-normalizar hasta tener 50 tablas para un sistema simple." },
+      { "type": "text", "value": "CHECKLIST: ¿Puedo actualizar el nombre de un cliente en un solo sitio?" }
+    ]
+  },
+  {
+    "slug": "tools-ide-setup-ignacio",
+    "title": "Mis Herramientas: Setup de Desarrollo 2024",
+    "date": "2024-04-15",
+    "tags": ["Herramientas"],
+    "excerpt": "Extensiones y configuraciones que me ayudan a ser más productivo.",
+    "readTime": "7 min",
+    "coverImage": "assets/blog/fallback-general.svg",
+    "content": [
+      { "type": "text", "value": "IDEs: IntelliJ (Java), VS Code (Web/JS)." },
+      { "type": "text", "value": "WEBS: DevDocs.io (Docs offline), SQLFiddle (Pruebas SQL), Roadmap.sh." },
+      { "type": "text", "value": "Extensiones: Prettier, Error Lens, Database Client." },
+      { "type": "text", "value": "CHECKLIST: ¿Tengo el autoguardado activo? ¿Uso fuentes monoespaciadas?" }
+    ]
+  },
+  {
+    "slug": "sql-dates-reporting",
+    "title": "SQL: Consultas de Fechas para Informes Temporales",
+    "date": "2024-04-12",
+    "tags": ["SQL"],
+    "excerpt": "Agrupando por mes, semana y filtrando rangos dinámicos.",
+    "readTime": "10 min",
+    "coverImage": "assets/blog/fallback-sql.svg",
+    "content": [
+      { "type": "text", "value": "PROBLEMA: SQL maneja fechas de forma distinta según el motor." },
+      { "type": "code", "language": "sql", "value": "-- Ventas últimos 30 días (Postgres)\nSELECT * FROM ventas WHERE fecha > NOW() - INTERVAL '30 days';" },
+      { "type": "code", "language": "sql", "value": "-- Agrupar por Mes y Año\nSELECT DATE_FORMAT(fecha, '%Y-%m') as mes, SUM(total) \nFROM ventas GROUP BY mes;" },
+      { "type": "text", "value": "ERRORES COMUNES: No tener en cuenta la zona horaria o el formato de fecha del servidor." },
+      { "type": "text", "value": "CHECKLIST: ¿La columna es de tipo DATE o TIMESTAMP?" }
+    ]
+  },
+  {
+    "slug": "java-streams-filter-map",
+    "title": "Java: Streams API. Filter, Map y Reduce",
+    "date": "2024-04-10",
+    "tags": ["Java"],
+    "excerpt": "Programación funcional para colecciones más limpias.",
+    "readTime": "12 min",
+    "coverImage": "assets/blog/fallback-java.svg",
+    "content": [
+      { "type": "text", "value": "PROBLEMA: Bucles For interminables con Ifs anidados para filtrar una lista." },
+      { "type": "code", "language": "java", "value": "// Filtrar y transformar en una línea\nList<String> result = users.stream()\n  .filter(u -> u.isAdmin())\n  .map(User::getName)\n  .collect(Collectors.toList());" },
+      { "type": "text", "value": "ERRORES COMUNES: Olvidar la operación terminal (collect, findFirst) o usar streams para todo." },
+      { "type": "text", "value": "CHECKLIST: ¿Es más legible que un for? ¿He evitado efectos secundarios?" }
+    ]
+  },
+  {
+    "slug": "security-basics-checklist",
+    "title": "Seguridad: Checklist Básico para Desarrolladores Junior",
+    "date": "2024-04-05",
+    "tags": ["Seguridad"],
+    "excerpt": "Inyección SQL, XSS y manejo de secretos.",
+    "readTime": "10 min",
+    "coverImage": "assets/blog/fallback-general.svg",
+    "content": [
+      { "type": "text", "value": "SQLi: Usa siempre PreparedStatement. Nunca concatenes strings en consultas." },
+      { "type": "text", "value": "XSS: Sanitiza el input del usuario antes de renderizarlo como HTML." },
+      { "type": "text", "value": "SECRETOS: Nunca subas APIs keys o passwords al repositorio. Usa .env." },
+      { "type": "text", "value": "ERRORES COMUNES: Guardar passwords en texto plano en la DB." },
+      { "type": "text", "value": "CHECKLIST: ¿Uso HTTPS? ¿Las contraseñas tienen salt?" }
+    ]
+  },
+  {
+    "slug": "xml-xsd-complex-types",
+    "title": "XSD: Tipos Complejos y Extensiones",
+    "date": "2024-04-01",
+    "tags": ["XML"],
+    "excerpt": "Reutilizando estructuras de datos con extension y restriction.",
+    "readTime": "9 min",
+    "coverImage": "assets/blog/fallback-xml.svg",
+    "content": [
+      { "type": "text", "value": "PROBLEMA: Definir la misma estructura de dirección en 5 elementos distintos." },
+      { "type": "code", "language": "xml", "value": "<xs:complexType name=\"tipoBase\">\n  <xs:sequence> <xs:element name=\"id\" type=\"xs:int\"/> </xs:sequence>\n</xs:complexType>\n<xs:complexType name=\"tipoExtendido\">\n  <xs:complexContent>\n    <xs:extension base=\"tipoBase\">\n      <xs:sequence> <xs:element name=\"nombre\" type=\"xs:string\"/> </xs:sequence>\n    </xs:extension>\n  </xs:complexContent>\n</xs:complexType>" },
+      { "type": "text", "value": "ERRORES COMUNES: No usar tipos base para elementos que comparten el 80% de campos." },
+      { "type": "text", "value": "CHECKLIST: ¿Es escalable? ¿He usado minOccurs=\"0\" para opcionales?" }
+    ]
+  }
+]

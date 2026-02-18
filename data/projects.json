@@ -1,0 +1,139 @@
+
+[
+  {
+    "slug": "wordle-clone",
+    "title": "LexiLogic (Wordle Clone)",
+    "shortDescription": "Un clon del popular juego Wordle con estadísticas persistentes y modo oscuro.",
+    "problem": "Crear una lógica de validación de palabras eficiente y manejar el estado complejo del teclado virtual.",
+    "plannedFeatures": ["Validación en tiempo real", "Estadísticas locales", "Diccionario español/inglés", "Modo daltónico"],
+    "stackPlanned": ["HTML5", "Tailwind CSS", "JavaScript ES6+", "LocalStorage"],
+    "status": "en_desarrollo",
+    "roadmap": {
+      "mvp": ["Lógica básica de juego", "Teclado en pantalla", "1 palabra al día"],
+      "v2": ["Historial de victorias", "Compartir resultados", "Modo práctica"]
+    },
+    "repoUrl": "#",
+    "demoUrl": "#",
+    "highlights": "Demuestra capacidad de manejo de arrays, objetos y lógica condicional compleja.",
+    "screenshots": ["https://picsum.photos/800/600?random=1"]
+  },
+  {
+    "slug": "weather-vitamin",
+    "title": "Weather Vitamin",
+    "shortDescription": "App del tiempo que recomienda actividades basadas en la previsión.",
+    "problem": "Integrar múltiples fuentes de datos y transformar valores meteorológicos en consejos útiles.",
+    "plannedFeatures": ["Geolocalización", "Gráficos de temperatura", "Sugerencia de ropa", "Alertas de polen"],
+    "stackPlanned": ["React", "OpenWeatherMap API", "Recharts", "Framer Motion"],
+    "status": "idea",
+    "roadmap": {
+      "mvp": ["Pronóstico 24h", "Búsqueda por ciudad", "Interfaz minimalista"],
+      "v2": ["Pronóstico 7 días", "Widget de escritorio", "Notificaciones push"]
+    },
+    "repoUrl": "#",
+    "demoUrl": "#",
+    "highlights": "Uso intensivo de APIs externas y visualización de datos dinámica.",
+    "screenshots": ["https://picsum.photos/800/600?random=2"]
+  },
+  {
+    "slug": "review-hub",
+    "title": "CriticHub",
+    "shortDescription": "Plataforma para puntuar y reseñar obras de arte, libros y cine.",
+    "problem": "Gestión de una base de datos de usuarios y persistencia de valoraciones.",
+    "plannedFeatures": ["Sistema de 5 estrellas", "Comentarios con markdown", "Buscador global", "Perfiles de usuario"],
+    "stackPlanned": ["Next.js", "Firebase/Supabase", "Tailwind CSS", "Lucide Icons"],
+    "status": "idea",
+    "roadmap": {
+      "mvp": ["CRUD de reseñas", "Login social", "Lista de favoritos"],
+      "v2": ["Seguir a otros críticos", "Recomendaciones algorítmicas", "Exportar a PDF"]
+    },
+    "repoUrl": "#",
+    "demoUrl": "#",
+    "highlights": "Arquitectura de base de datos relacional y autenticación segura.",
+    "screenshots": ["https://picsum.photos/800/600?random=3"]
+  },
+  {
+    "slug": "inventory-pro",
+    "title": "StockMaster",
+    "shortDescription": "Gestor de inventario para pequeñas empresas con alertas de stock bajo.",
+    "problem": "Control de transacciones en tiempo real y generación de informes de existencias.",
+    "plannedFeatures": ["Escaneo QR (simulado)", "Historial de cambios", "Exportación CSV", "Alertas por email"],
+    "stackPlanned": ["React", "Node.js", "Express", "PostgreSQL"],
+    "status": "en_desarrollo",
+    "roadmap": {
+      "mvp": ["Dashboard de stock", "Añadir/Editar productos", "Categorías"],
+      "v2": ["Gráficos de ventas", "Múltiples almacenes", "Permisos de rol"]
+    },
+    "repoUrl": "#",
+    "demoUrl": "#",
+    "highlights": "Operaciones CRUD avanzadas y manejo de bases de datos SQL.",
+    "screenshots": ["https://picsum.photos/800/600?random=4"]
+  },
+  {
+    "slug": "ai-support",
+    "title": "GeminiSupport Bot",
+    "shortDescription": "Chatbot de soporte técnico inteligente con base de conocimiento personalizada.",
+    "problem": "Implementar procesamiento de lenguaje natural para entender consultas técnicas ambiguas.",
+    "plannedFeatures": ["Integración Gemini API", "Streaming de texto", "Historial de chat", "Contexto de marca"],
+    "stackPlanned": ["@google/genai", "React", "TypeScript", "Vercel SDK"],
+    "status": "en_desarrollo",
+    "roadmap": {
+      "mvp": ["Chat básico con IA", "Configuración de sistema", "Interfaz móvil"],
+      "v2": ["Escalado a humano", "Análisis de sentimiento", "Múltiples idiomas"]
+    },
+    "repoUrl": "#",
+    "demoUrl": "#",
+    "highlights": "Integración de Inteligencia Artificial Generativa y manejo de prompts.",
+    "screenshots": ["https://picsum.photos/800/600?random=5"]
+  },
+  {
+    "slug": "translator-app",
+    "title": "PolyGlot Trans",
+    "shortDescription": "Aplicación de traducción instantánea con detección automática de idioma.",
+    "problem": "Optimizar la latencia entre peticiones de traducción y manejo de errores de red.",
+    "plannedFeatures": ["TTS (Text-to-Speech)", "Detección de voz", "Traducción de imágenes", "Favoritos offline"],
+    "stackPlanned": ["React Native", "Google Cloud Translation", "Context API"],
+    "status": "idea",
+    "roadmap": {
+      "mvp": ["Traductor de texto", "Detección de idioma", "Copia al portapapeles"],
+      "v2": ["Diccionario offline", "Traducción por cámara", "Historial sincronizado"]
+    },
+    "repoUrl": "#",
+    "demoUrl": "#",
+    "highlights": "Uso de herramientas de accesibilidad y APIs de traducción masiva.",
+    "screenshots": ["https://picsum.photos/800/600?random=6"]
+  },
+  {
+    "slug": "fit-planner",
+    "title": "HabitFuel",
+    "shortDescription": "Asistente semanal de nutrición y ejercicio para planificar tu bienestar.",
+    "problem": "Manejo de fechas y calendarios dinámicos para el seguimiento de rutinas.",
+    "plannedFeatures": ["Calendario interactivo", "Contador de macros", "Biblioteca de ejercicios", "Gráficos de progreso"],
+    "stackPlanned": ["React", "date-fns", "Tailwind", "LocalStorage"],
+    "status": "en_desarrollo",
+    "roadmap": {
+      "mvp": ["Planificador semanal", "Lista de tareas fitness", "Registro de peso"],
+      "v2": ["Generador de dietas aleatorio", "Integración con Google Fit", "Modo comunidad"]
+    },
+    "repoUrl": "#",
+    "demoUrl": "#",
+    "highlights": "Gestión de estados complejos y lógica de fechas en frontend.",
+    "screenshots": ["https://picsum.photos/800/600?random=7"]
+  },
+  {
+    "slug": "mini-headless-cms",
+    "title": "CoreCMS",
+    "shortDescription": "Un micro Headless CMS para blogs estáticos que genera JSON dinámico.",
+    "problem": "Crear una interfaz de edición flexible que se abstraiga del formato final de los datos.",
+    "plannedFeatures": ["Editor Rich Text", "Gestión de Media", "API REST pública", "Webhooks"],
+    "stackPlanned": ["Node.js", "MongoDB", "React", "JWT Auth"],
+    "status": "idea",
+    "roadmap": {
+      "mvp": ["Gestión de posts", "Subida de imágenes", "API Read-only"],
+      "v2": ["Tipos de contenido custom", "Preview en vivo", "Dashboard multi-usuario"]
+    },
+    "repoUrl": "#",
+    "demoUrl": "#",
+    "highlights": "Diseño de sistemas, APIs RESTful y arquitectura de servicios.",
+    "screenshots": ["https://picsum.photos/800/600?random=8"]
+  }
+]

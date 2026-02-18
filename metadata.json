@@ -1,0 +1,8 @@
+{
+  "name": "Portfolio Ignacio Rubio - Junior Full-Stack Developer",
+  "description": "Portfolio profesional para Ignacio Rubio Pancorbo, estudiante de DAW/DAM con un enfoque minimalista y sistema de proyectos dinámico.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}

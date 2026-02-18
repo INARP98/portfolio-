@@ -1,0 +1,12 @@
+
+<svg width="800" height="450" viewBox="0 0 800 450" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="800" height="450" fill="#0A1828"/>
+<circle cx="400" cy="225" r="150" stroke="#00C4B0" stroke-width="0.5" stroke-dasharray="10 10" opacity="0.3"/>
+<path d="M300 150L350 200L300 250" stroke="#00C4B0" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="360" y="240" width="40" height="10" rx="2" fill="#00C4B0">
+  <animate attributeName="opacity" values="0;1;0" dur="1s" repeatCount="indefinite" />
+</rect>
+<text x="400" y="380" text-anchor="middle" fill="#00C4B0" font-family="monospace" font-size="14" opacity="0.5">DEV_NULL_IMAGE_NOT_FOUND</text>
+<path d="M0 0L800 450" stroke="#00C4B0" stroke-width="0.2" opacity="0.1"/>
+<path d="M800 0L0 450" stroke="#00C4B0" stroke-width="0.2" opacity="0.1"/>
+</svg>
